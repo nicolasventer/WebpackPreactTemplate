@@ -11,6 +11,7 @@ npm install -g -D webpack webpack-cli
 
 ```bash
 git clone git@github.com:nicolasventer/WebpackReactTemplate.git
+cd WebpackReactTemplate
 npm install
 ```
 
