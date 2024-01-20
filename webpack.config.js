@@ -10,7 +10,11 @@ const RefreshLiveServerPlugin = {
 		compiler.hooks.afterEmit.tap("RefreshLiveServer", () => {
 			const fs = require("fs");
 			fs.writeFileSync("dist/_dmp", "");
-			setTimeout(() => fs.unlinkSync("dist/_dmp"), 500);
+			setTimeout(() => {
+				try {
+					fs.unlinkSync("dist/_dmp");
+				} catch {}
+			}, 500);
 		});
 	},
 };
