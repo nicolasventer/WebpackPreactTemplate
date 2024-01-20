@@ -1,7 +1,7 @@
 # Webpack React Template
 
 This is a template for a really quick creation of React project with Webpack build.  
-This should be used with Visual Studio Code and the Live Server extension.
+This should be used with Visual Studio Code and the [Live Server extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server).
 
 ## Installation
 
@@ -21,11 +21,9 @@ npm install
 npm install -g nodemon nodemon-webpack-plugin
 ```
 
-In [webpack.config.js](./webpack.config.js), uncomment the following line:
+## Demo
 
-```js
-	// plugins: [RefreshLiveServerPlugin],
-```
+![Demo](./demo.gif)
 
 ## Usage
 

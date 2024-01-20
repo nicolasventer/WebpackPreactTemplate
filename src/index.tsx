@@ -1,10 +1,10 @@
 import { Suspense, lazy } from "react";
-import { render } from "react-dom";
+import { createRoot } from "react-dom/client";
 import { Collapsible } from "./Collapsible";
 
 const Counter = lazy(() => import("./Counter").then((m) => ({ default: m.Counter })));
 
-render(
+createRoot(document.getElementById("root")!).render(
 	<div>
 		<Collapsible open>
 			<p>Hello, world!</p>
@@ -15,8 +15,7 @@ render(
 				<Counter />
 			</Suspense>
 		</Collapsible>
-	</div>,
-	document.getElementById("root")
+	</div>
 );
 
 console.log("Hello, world!");
