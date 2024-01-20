@@ -10,7 +10,7 @@ const RefreshLiveServerPlugin = {
 		compiler.hooks.afterEmit.tap("RefreshLiveServer", () => {
 			const fs = require("fs");
 			fs.writeFileSync("dist/_dmp", "");
-			fs.unlinkSync("dist/_dmp");
+			setTimeout(() => fs.unlinkSync("dist/_dmp"), 500);
 		});
 	},
 };
@@ -24,7 +24,8 @@ module.exports = {
 		filename: "[name].bundle.js",
 		chunkFilename: "[name].chunk.js",
 	},
-	mode: "production",
+	mode: "development",
+	// mode: "production",
 	resolve: {
 		extensions: [".ts", ".tsx", ".js"],
 	},
