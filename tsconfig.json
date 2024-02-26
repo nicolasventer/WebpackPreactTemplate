@@ -12,5 +12,6 @@
 		"importHelpers": true
 		// "declaration": true,
 		// "outDir": "./dist"
-	}
+	},
+	"include": ["src", "src/custom.d.ts"]
 }

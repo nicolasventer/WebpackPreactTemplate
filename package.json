@@ -5,7 +5,9 @@
 		"watch": "webpack --watch"
 	},
 	"devDependencies": {
+		"@svgr/webpack": "^8.1.0",
 		"css-loader": "^6.10.0",
+		"file-loader": "^6.2.0",
 		"style-loader": "^3.3.4",
 		"ts-loader": "^9.5.1",
 		"tslib": "^2.6.2",
