@@ -1,9 +1,12 @@
 {
 	"type": "module",
 	"scripts": {
-		"build": "tsc --noEmit && webpack",
-		"rebuild": "del /Q 2>NUL dist && webpack",
-		"watch": "webpack --watch"
+		"wbuild": "tsc --noEmit && webpack",
+		"rebuild": "cmd /c 'del /Q 2>NUL dist && webpack'",
+		"watch": "webpack --watch",
+		"dev": "bunx --bun vite",
+		"build": "vite build",
+		"preview": "vite preview"
 	},
 	"devDependencies": {
 		"@svgr/webpack": "^8.1.0",
@@ -15,6 +18,7 @@
 		"webpack-cli": "^5.1.4"
 	},
 	"dependencies": {
+		"@preact/preset-vite": "^2.9.0",
 		"@types/node": "^22.2.0",
 		"preact": "^10.23.2"
 	}
