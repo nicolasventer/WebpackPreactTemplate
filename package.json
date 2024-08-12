@@ -1,4 +1,5 @@
 {
+	"type": "module",
 	"scripts": {
 		"build": "tsc --noEmit && webpack",
 		"rebuild": "del /Q 2>NUL dist && webpack",
