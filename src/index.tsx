@@ -1,10 +1,10 @@
-import { Suspense, lazy } from "react";
-import { createRoot } from "react-dom/client";
+import { render } from "preact";
+import { lazy, Suspense } from "preact/compat";
 import { Collapsible } from "./Collapsible";
 
-const Counter = lazy(() => import("./Counter").then((m) => ({ default: m.Counter })));
+const Counter = lazy(() => import("./Counter").then((m) => m.Counter));
 
-createRoot(document.getElementById("root")!).render(
+render(
 	<div>
 		<Collapsible open>
 			<p>Hello, world!</p>
@@ -15,7 +15,8 @@ createRoot(document.getElementById("root")!).render(
 				<Counter />
 			</Suspense>
 		</Collapsible>
-	</div>
+	</div>,
+	document.getElementById("root")!
 );
 
 console.log("Hello, world!");

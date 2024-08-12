@@ -1,4 +1,5 @@
-import { ReactNode, useState } from "react";
+import { ReactNode } from "preact/compat";
+import { useState } from "preact/hooks";
 
 export const Collapsible = ({ children, open }: { children: ReactNode; open?: boolean }) => {
 	const [open_, setOpen_] = useState(open);
