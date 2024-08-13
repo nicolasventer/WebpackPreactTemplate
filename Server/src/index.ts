@@ -67,6 +67,24 @@ watchFile(pageFile, (curr, prev) => {
 	console.log("Page file updated:", pageFile);
 });
 
+const mimeTypes = {
+	".html": "text/html",
+	".css": "text/css",
+	".js": "application/javascript",
+	".json": "application/json",
+	".png": "image/png",
+	".jpg": "image/jpeg",
+	".jpeg": "image/jpeg",
+	".gif": "image/gif",
+	".svg": "image/svg+xml",
+	".ico": "image/x-icon",
+};
+
+const getMimeType = (filename: string) => {
+	for (const ext in mimeTypes) if (filename.endsWith(ext)) return mimeTypes[ext as keyof typeof mimeTypes];
+	return "text/plain";
+};
+
 Bun.serve({
 	port: 3000,
 	fetch(req) {
@@ -74,10 +92,9 @@ Bun.serve({
 		const pathname = url.pathname === "/" ? "/page.html" : url.pathname;
 		const joinedPath = path.join(CLIENT_PATH, pathname);
 		console.log("joinedPath:", joinedPath);
-		if (files.includes(joinedPath)) {
-			return new Response(filesContent[joinedPath], { headers: { "Content-Type": "text/html" } });
-		}
-		return new Response("Nope");
+		if (files.includes(joinedPath))
+			return new Response(filesContent[joinedPath], { headers: { "Content-Type": getMimeType(joinedPath) } });
+		return new Response(`${url.pathname} not found`, { status: 404 });
 	},
 });
 
