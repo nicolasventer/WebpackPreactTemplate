@@ -10,7 +10,9 @@
 		"jsx": "react-jsx",
 		"jsxImportSource": "preact",
 		"resolveJsonModule": true,
+		"isolatedModules": true,
 		"importHelpers": true,
+		"sourceMap": true,
 		// "declaration": true,
 		// "outDir": "./dist",
 		"paths": {

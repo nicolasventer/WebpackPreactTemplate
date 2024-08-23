@@ -1,17 +1,25 @@
+import cors from "@elysiajs/cors";
+import swagger from "@elysiajs/swagger";
+import Elysia from "elysia";
 import { closeSync, fstatSync, openSync, readdirSync, watchFile } from "fs";
 import path from "path";
 import Watcher from "watcher";
+import { PORT, SRV_URL } from "./Common/CommonConfig";
 
 const CLIENT_PATH = path.join(__dirname, "../../Client");
 const DIST_PATH = path.join(CLIENT_PATH, "dist");
+const DOCS_PATH = path.join(CLIENT_PATH, "docs");
 const PAGE_PATH = path.join(CLIENT_PATH, "page.html");
 
-const distFiles = readdirSync(DIST_PATH, { withFileTypes: true, recursive: true }).map((file) =>
-	path.join(file.parentPath, file.name)
-);
+const distFiles = readdirSync(DIST_PATH, { withFileTypes: true, recursive: true })
+	.filter((file) => file.isFile())
+	.map((file) => path.join(file.parentPath, file.name));
+const docsFiles = readdirSync(DOCS_PATH, { withFileTypes: true, recursive: true })
+	.filter((file) => file.isFile())
+	.map((file) => path.join(file.parentPath, file.name));
 const pageFile = PAGE_PATH;
 
-const files = [pageFile, ...distFiles];
+const files = [pageFile, ...distFiles, ...docsFiles];
 
 const filesContent = await (async () => {
 	const result = {} as Record<string, string>;
@@ -33,6 +41,7 @@ const filesStatSize = await (async () => {
 })();
 
 const watcher = new Watcher(DIST_PATH, { recursive: true, native: true });
+watcher.watch(DOCS_PATH, { recursive: true, native: true });
 
 const updateFile = (filename: string) => {
 	const oldSize = filesStatSize[filename];
@@ -85,17 +94,28 @@ const getMimeType = (filename: string) => {
 	return "text/plain";
 };
 
-Bun.serve({
-	port: 3000,
-	fetch(req) {
-		const url = new URL(req.url);
-		const pathname = url.pathname === "/" ? "/page.html" : url.pathname;
+/**
+ * @ignore See documentation in the swagger description.
+ * The Elysia server.
+ */
+export const app = new Elysia()
+	.use(cors())
+	.use(swagger())
+	.get("*", (req) => {
+		const pathname = req.path === "/" ? "/page.html" : req.path === "/docs/" ? "/docs/index.html" : req.path;
 		const joinedPath = path.join(CLIENT_PATH, pathname);
 		console.log("joinedPath:", joinedPath);
 		if (files.includes(joinedPath))
 			return new Response(filesContent[joinedPath], { headers: { "Content-Type": getMimeType(joinedPath) } });
-		return new Response(`${url.pathname} not found`, { status: 404 });
-	},
-});
+		return new Response(`${req.path} not found`, { status: 404 });
+	})
+	.get("/api/status", () => "Server is running")
+	.listen(PORT);
 
-console.log("Server started on http://localhost:3000");
+/**
+ * @ignore See documentation in the swagger description.
+ * The type of the Elysia server.
+ */
+export type App = typeof app;
+
+console.log(`Server started on ${SRV_URL}`);
