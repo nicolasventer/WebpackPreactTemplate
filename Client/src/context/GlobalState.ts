@@ -1,4 +1,5 @@
 import { effect, signal, Signal } from "@preact/signals";
+import { ColorSchemeType } from "../Common/CommonModel";
 import { signalToValue, SignalToValue } from "../utils/signalUtils";
 
 /**
@@ -6,7 +7,7 @@ import { signalToValue, SignalToValue } from "../utils/signalUtils";
  */
 export type GlobalState = {
 	/** the color scheme of the application */
-	colorScheme: Signal<"light" | "dark">;
+	colorScheme: Signal<ColorSchemeType>;
 };
 
 const loadGlobalState = (): GlobalState => {

@@ -6,10 +6,10 @@ This is the client side of the application.
 
 ## Requirements
 
-- bun
-- typedoc
-- webpack
-- playwright + (VsCode extension)
+- [bun](https://bun.sh/)
+- [typedoc](https://typedoc.org/)
+- [webpack](https://www.npmjs.com/package/webpack)
+- [playwright](https://playwright.dev/) + ([VsCode extension](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright))
 
 ## Installation
 

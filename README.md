@@ -6,7 +6,7 @@ This is a template for a Preact project. It can either be used as a standalone c
 
 - [x] Hot reload (client)
 - [x] Watch mode (server)
-- [x] Client side renderin
+- [x] Client side rendering
 - [x] Tests (server and client)
 - [x] Code coverage (server and client)
 - [x] Documentation (server and client)
@@ -30,7 +30,7 @@ cd WebpackReactTemplate
 all_init_on_cloned.bat
 ```
 
-#### Manual installation
+#### Setup only of the installation
 
 ```bat
 mklink /J "Client/src/Common" "Server/src/Common"
@@ -46,7 +46,7 @@ cd WebpackReactTemplate
 ./all_init_on_cloned.sh
 ```
 
-#### Manual installation
+#### Setup only of the installation
 
 ```bash
 ln -s Server/src/Common Client/src/Common
@@ -54,7 +54,7 @@ ln -s Server/src/Common Client/src/Common
 
 ## Usage
 
-### Only Client (useful for hot reload that keeps the state)
+### Client only (useful for hot reload that keeps the state)
 
 #### Development
 
@@ -88,9 +88,9 @@ In the Client folder, run:
 bun run build
 ```
 
-*In case you have issue with the webpack build, you can use the plugin `vite-plugin-singlefile`.*
+*In case you have an issue with the webpack build, you can use the plugin `vite-plugin-singlefile`.*
 
-Then serve `index.html` and `dist` folder (and optionnaly the `docs` folder) (for example push on github pages).
+Then serve `index.html` and `dist` folder (and optionnaly the `docs` folder) (for example push on GitHub pages).
 
 ### Server and Client
 
@@ -102,7 +102,7 @@ In the Client folder, run:
 bun run watch
 ```
 
-*If no server neede, you can consider the usage of the VS Code extension: [Live Server extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server).*
+*If no server is needed, you can consider the usage of the VS Code extension: [Live Server extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server).*
 
 In the Server folder, run:
 

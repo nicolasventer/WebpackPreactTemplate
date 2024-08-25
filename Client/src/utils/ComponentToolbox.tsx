@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import type { ComponentChild, ComponentChildren, JSX } from "preact";
+import type { ComponentChildren, JSX } from "preact";
 import { ComponentPropsWithoutRef, createElement } from "preact/compat";
 import { useEffect } from "preact/hooks";
 
@@ -56,8 +56,6 @@ const WriteClasses = (styleId: string, classes: Record<string, Partial<CSSStyleD
 export const WriteToolboxClasses = () => {
 	useEffect(() => {
 		WriteClasses("vanilla-classes", {
-			horizontal: { display: "flex", justifyContent: "space-between" },
-			vertical: { display: "flex", flexDirection: "column", justifyContent: "space-between" },
 			hDisplay: { display: "flex", flexDirection: "row" },
 			vDisplay: { display: "flex", flexDirection: "column" },
 			overlap: { position: "relative" },
@@ -66,113 +64,6 @@ export const WriteToolboxClasses = () => {
 	}, []);
 	return <></>;
 };
-
-/** Layout values */
-export const LayoutValues = ["horizontal", "vertical"] as const;
-/** Layout type */
-export type LayoutType = (typeof LayoutValues)[number];
-
-/**
- * A layout component
- * @param props div props and layout
- * @param props.layout the layout type
- * @param props.children expects at most 3 children, left, center, and right (add {null} to skip)
- * @returns a div with the children laid out according to the layout type
- */
-export const Layout = ({
-	layout,
-	children: [leftEl, centerEl, rightEl],
-	...divProps
-}: {
-	layout: LayoutType;
-	children: [ComponentChild, ComponentChild, ComponentChild];
-} & ComponentPropsWithoutRef<"div">) => (
-	<div {...divProps} class={clsx(layout, divProps.class)}>
-		{leftEl ?? <div />}
-		{centerEl ?? <div />}
-		{rightEl ?? <div />}
-	</div>
-);
-
-/**
- * A horizontal layout component
- * @see {@link Layout}
- * @param props div props, expects at most 3 children, left, center, and right (add {null} to skip)
- * @returns a div with the children laid out horizontally
- */
-export const Horizontal = (props: Omit<ComponentPropsWithoutRef<typeof Layout>, "layout">) => (
-	<Layout {...props} layout="horizontal" />
-);
-
-/**
- * A horizontal layout component (for only left)
- * @see {@link Horizontal}
- * @param props div props, expects one child (placed at the left)
- * @returns a div with the child laid out at the left
- */
-export const Left = ({ children, ...divProps }: ComponentPropsWithoutRef<"div">) => (
-	<Horizontal {...divProps} children={[children, null, null]} />
-);
-
-/**
- * A horizontal layout component (for only center)
- * @see {@link Horizontal}
- * @param props div props, expects one child (placed at the center)
- * @returns a div with the child laid out at the center
- */
-export const Center = ({ children, ...divProps }: ComponentPropsWithoutRef<"div">) => (
-	<Horizontal {...divProps} children={[null, children, null]} />
-);
-
-/**
- * A horizontal layout component (for only right)
- * @see {@link Horizontal}
- * @param props div props, expects one child (placed at the right)
- * @returns a div with the child laid out at the right
- */
-export const Right = ({ children, ...divProps }: ComponentPropsWithoutRef<"div">) => (
-	<Horizontal {...divProps} children={[null, null, children]} />
-);
-
-/**
- * A vertical layout component
- * @see {@link Layout}
- * @param props div props, expects at most 3 children, top, middle, and bottom (add {null} to skip)
- * @returns a div with the children laid out vertically
- */
-export const Vertical = (props: Omit<ComponentPropsWithoutRef<typeof Layout>, "layout">) => (
-	<Layout {...props} layout="vertical" />
-);
-
-/**
- * A vertical layout component (for only top)
- * @see {@link Vertical}
- * @param props div props, expects one child (placed at the top)
- * @returns a div with the child laid out at the top
- */
-export const Top = ({ children, ...divProps }: ComponentPropsWithoutRef<"div">) => (
-	<Vertical {...divProps} children={[children, null, null]} />
-);
-
-/**
- * A vertical layout component (for only middle)
- * @see {@link Vertical}
- * @param props div props, expects one child (placed at the middle)
- * @returns a div with the child laid out at the middle
- */
-export const Middle = ({ children, ...divProps }: ComponentPropsWithoutRef<"div">) => (
-	<Vertical {...divProps} children={[null, children, null]} />
-);
-
-/**
- * A vertical layout component (for only bottom)
- * @see {@link Vertical}
- * @param props div props, expects one child (placed at the bottom)
- * @returns a div with the child laid out at the bottom
- */
-export const Bottom = ({ children, ...divProps }: ComponentPropsWithoutRef<"div">) => (
-	<Vertical {...divProps} children={[null, null, children]} />
-);
 
 /** Justify content values */
 export const JustifyContentValues = [
@@ -203,33 +94,39 @@ export type LDisplayType = (typeof LDisplayValues)[number];
  * @param props.ldisplay the display type
  * @param props.alignItems the align items value
  * @param props.justifyContent the justify content value
+ * @param props.gap the gap value
+ * @param props.flexGrow the flex grow value
  * @returns a div with the flex box properties
  */
 export const LDisplay = ({
 	ldisplay,
 	alignItems,
 	justifyContent,
+	gap,
+	flexGrow,
 	...divProps
 }: {
 	ldisplay: LDisplayType;
 	alignItems?: AlignItemsType;
 	justifyContent?: JustifyContentType;
+	gap?: CssProperty;
+	flexGrow?: CssProperty;
 } & ComponentPropsWithoutRef<"div">) => (
 	<div
 		{...divProps}
 		class={clsx(ldisplay, divProps.class)}
-		style={{ ...(typeof divProps.style === "object" ? divProps.style : {}), alignItems, justifyContent }}
+		style={{ ...(typeof divProps.style === "object" ? divProps.style : {}), alignItems, justifyContent, gap, flexGrow }}
 	/>
 );
 
 /**
- * A horizontal flex box
+ * A horizontal flex box, with default alignItems="center"
  * @see {@link LDisplay}
  * @param props div props
  * @returns a div with the horizontal flex box properties
  */
 export const HDisplay = (props: Omit<ComponentPropsWithoutRef<typeof LDisplay>, "ldisplay">) => (
-	<LDisplay {...props} ldisplay="hDisplay" />
+	<LDisplay alignItems="center" {...props} ldisplay="hDisplay" />
 );
 
 /**
@@ -298,6 +195,7 @@ export const GetIntrinsicComp =
  * @param props.height the height of the box
  * @param props.padding the padding of the box
  * @param props.margin the margin of the box
+ * @param props.flexGrow the flex grow of the box
  * @returns a div with the width, height, padding, and margin properties
  */
 export const Box = ({
@@ -305,15 +203,17 @@ export const Box = ({
 	height,
 	padding,
 	margin,
+	flexGrow,
 	...divProps
 }: {
 	width?: CssProperty;
 	height?: CssProperty;
 	padding?: CssProperty;
 	margin?: CssProperty;
+	flexGrow?: CssProperty;
 } & ComponentPropsWithoutRef<"div">) => (
 	<div
 		{...divProps}
-		style={{ ...(typeof divProps.style === "object" ? { ...divProps.style } : {}), width, height, padding, margin }}
+		style={{ ...(typeof divProps.style === "object" ? { ...divProps.style } : {}), width, height, padding, margin, flexGrow }}
 	/>
 );
