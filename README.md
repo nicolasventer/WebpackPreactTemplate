@@ -25,8 +25,8 @@ npm install -g nodemon nodemon-webpack-plugin
 #### Installation
 
 ```ps1
-git clone https://github.com/nicolasventer/WebpackReactTemplate.git
-Set-Location WebpackReactTemplate
+git clone https://github.com/nicolasventer/Preact-Project-Template.git
+Set-Location Preact-Project-Template
 all_init_on_cloned.ps1
 ```
 
@@ -42,8 +42,8 @@ New-Item -ItemType Junction -Name "Client/src/Common" -Target "Server/src/Common
 #### Installation
 
 ```bash
-git clone https://github.com/nicolasventer/WebpackReactTemplate.git
-cd WebpackReactTemplate
+git clone https://github.com/nicolasventer/Preact-Project-Template.git
+cd Preact-Project-Template
 ./all_init_on_cloned.sh
 ```
 
