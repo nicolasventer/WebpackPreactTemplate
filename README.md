@@ -24,17 +24,17 @@ npm install -g nodemon nodemon-webpack-plugin
 
 #### Installation
 
-```bat
+```ps1
 git clone https://github.com/nicolasventer/WebpackReactTemplate.git
-cd WebpackReactTemplate
-all_init_on_cloned.bat
+Set-Location WebpackReactTemplate
+all_init_on_cloned.ps1
 ```
 
 The script will create a symbolic link between the `Common` folder of the `Client` and `Server` folders and then install the dependencies.  
 If you want to install the dependencies manually, you should at least create the symbolic link:
 
-```bat
-mklink /J "Client/src/Common" "Server/src/Common"
+```ps1
+New-Item -ItemType Junction -Name "Client/src/Common" -Target "Server/src/Common"
 ```
 
 ### On Linux
