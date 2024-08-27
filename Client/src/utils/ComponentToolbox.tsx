@@ -90,32 +90,46 @@ export type LDisplayType = (typeof LDisplayValues)[number];
 
 /**
  * A flex box
- * @param props div props and ldisplay, alignItems and justifyContent
- * @param props.ldisplay the display type
+ * @param props div props and lDisplay, alignItems and justifyContent
+ * @param props.lDisplay the display type
  * @param props.alignItems the align items value
  * @param props.justifyContent the justify content value
  * @param props.gap the gap value
+ * @param props.padding the padding value
+ * @param props.margin the margin value
  * @param props.flexGrow the flex grow value
  * @returns a div with the flex box properties
  */
 export const LDisplay = ({
-	ldisplay,
+	lDisplay,
 	alignItems,
 	justifyContent,
 	gap,
+	padding,
+	margin,
 	flexGrow,
 	...divProps
 }: {
-	ldisplay: LDisplayType;
+	lDisplay: LDisplayType;
 	alignItems?: AlignItemsType;
 	justifyContent?: JustifyContentType;
 	gap?: CssProperty;
+	padding?: CssProperty;
+	margin?: CssProperty;
 	flexGrow?: CssProperty;
 } & ComponentPropsWithoutRef<"div">) => (
 	<div
 		{...divProps}
-		class={clsx(ldisplay, divProps.class)}
-		style={{ ...(typeof divProps.style === "object" ? divProps.style : {}), alignItems, justifyContent, gap, flexGrow }}
+		className={clsx(lDisplay, divProps.class, divProps.className)}
+		style={{
+			alignItems,
+			justifyContent,
+			gap,
+			padding,
+			margin,
+			flexGrow,
+			...(typeof divProps.style === "object" ? divProps.style : {}),
+		}}
 	/>
 );
 
@@ -125,8 +139,8 @@ export const LDisplay = ({
  * @param props div props
  * @returns a div with the horizontal flex box properties
  */
-export const HDisplay = (props: Omit<ComponentPropsWithoutRef<typeof LDisplay>, "ldisplay">) => (
-	<LDisplay alignItems="center" {...props} ldisplay="hDisplay" />
+export const HDisplay = (props: Omit<ComponentPropsWithoutRef<typeof LDisplay>, "lDisplay">) => (
+	<LDisplay alignItems="center" {...props} lDisplay="hDisplay" />
 );
 
 /**
@@ -135,8 +149,8 @@ export const HDisplay = (props: Omit<ComponentPropsWithoutRef<typeof LDisplay>, 
  * @param props div props
  * @returns a div with the vertical flex box properties
  */
-export const VDisplay = (props: Omit<ComponentPropsWithoutRef<typeof LDisplay>, "ldisplay">) => (
-	<LDisplay {...props} ldisplay="vDisplay" />
+export const VDisplay = (props: Omit<ComponentPropsWithoutRef<typeof LDisplay>, "lDisplay">) => (
+	<LDisplay {...props} lDisplay="vDisplay" />
 );
 
 /**
@@ -145,8 +159,8 @@ export const VDisplay = (props: Omit<ComponentPropsWithoutRef<typeof LDisplay>, 
  * @param props div props
  * @returns a div with the overlap flex box properties
  */
-export const Overlap = (props: Omit<ComponentPropsWithoutRef<typeof LDisplay>, "ldisplay">) => (
-	<LDisplay {...props} ldisplay="overlap" />
+export const Overlap = (props: Omit<ComponentPropsWithoutRef<typeof LDisplay>, "lDisplay">) => (
+	<LDisplay {...props} lDisplay="overlap" />
 );
 
 /**
@@ -175,7 +189,7 @@ export const FlexGrow = <T extends (...args: any) => any>({
 	...divProps
 }: { Comp: T; flexGrow?: CssProperty } & Params<T>) => (
 	// @ts-ignore
-	<Comp {...divProps} style={{ ...(typeof divProps.style === "object" ? divProps.style : {}), flexGrow }} />
+	<Comp {...divProps} style={{ flexGrow, ...(typeof divProps.style === "object" ? divProps.style : {}) }} />
 );
 
 /**
@@ -214,6 +228,6 @@ export const Box = ({
 } & ComponentPropsWithoutRef<"div">) => (
 	<div
 		{...divProps}
-		style={{ ...(typeof divProps.style === "object" ? { ...divProps.style } : {}), width, height, padding, margin, flexGrow }}
+		style={{ width, height, padding, margin, flexGrow, ...(typeof divProps.style === "object" ? { ...divProps.style } : {}) }}
 	/>
 );

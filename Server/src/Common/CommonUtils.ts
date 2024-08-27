@@ -13,13 +13,13 @@ type Api = ReturnType<typeof treaty<App>>["api"];
  */
 export const api: Api = treaty<App>(SRV_URL).api;
 
+/** The type of an object with the keys as the values of the enum. */
+export type EnumObj<T extends Readonly<string>> = { [K in T]: K };
+
 /**
- * Converts an enum to an object.
- * @param enumObj The enum to convert.
- * @returns an object with the enum values as keys and values.
+ * Ensure that the object is an EnumObj.
+ * @template T The type of the enum.
+ * @param _ The object to check.
+ * @returns nothing.
  */
-export const enumToObj = <T extends readonly string[]>(enumObj: T) => {
-	const obj = {} as { [key in T[number]]: key };
-	for (const value of enumObj) obj[value as keyof typeof obj] = value;
-	return obj;
-};
+export const checkEnumObj = <T extends Readonly<string>>(_: EnumObj<T>) => void 0;

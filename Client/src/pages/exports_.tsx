@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "preact/compat";
+import type { HomePage as HomePage_ } from "./Home";
 
 type Params<T> = T extends (...args: [infer U]) => any ? U : Record<string, never>;
 
@@ -18,5 +19,5 @@ const defaultLoader =
 
 // Pages
 
-/** Lazy export of HomePage */
+/** Lazy export of {@link HomePage_ | HomePage} */
 export const HomePage = Suspender(lazy(() => import("./Home").then(defaultLoader("HomePage"))));

@@ -1,6 +1,6 @@
 # Preact Project Template
 
-This is a template for a Preact project. It can either be used as a standalone client or as a client for a server.
+This is a template for a Preact project. It allows the client either to be standalone or to be a client for a server.
 
 ## Features
 
@@ -22,7 +22,7 @@ npm install -g nodemon nodemon-webpack-plugin
 
 ### On Windows:
 
-#### Full installation
+#### Installation
 
 ```bat
 git clone https://github.com/nicolasventer/WebpackReactTemplate.git
@@ -30,7 +30,8 @@ cd WebpackReactTemplate
 all_init_on_cloned.bat
 ```
 
-#### Setup only of the installation
+The script will create a symbolic link between the `Common` folder of the `Client` and `Server` folders and then install the dependencies.  
+If you want to install the dependencies manually, you should at least create the symbolic link:
 
 ```bat
 mklink /J "Client/src/Common" "Server/src/Common"
@@ -38,7 +39,7 @@ mklink /J "Client/src/Common" "Server/src/Common"
 
 ### On Linux
 
-#### Full installation
+#### Installation
 
 ```bash
 git clone https://github.com/nicolasventer/WebpackReactTemplate.git
@@ -46,7 +47,8 @@ cd WebpackReactTemplate
 ./all_init_on_cloned.sh
 ```
 
-#### Setup only of the installation
+The script will create a symbolic link between the `Common` folder of the `Client` and `Server` folders and then install the dependencies.  
+If you want to install the dependencies manually, you should at least create the symbolic link:
 
 ```bash
 ln -s Server/src/Common Client/src/Common
@@ -73,7 +75,7 @@ bun run dev
 In the Client folder, run:
 
 ```bash
-bun run _build
+bun run _build # be sure to type '_build' and not 'build'
 bun run preview
 # bun run doc # for documentation
 ```
@@ -90,7 +92,7 @@ bun run build
 
 *In case you have an issue with the webpack build, you can use the plugin `vite-plugin-singlefile`.*
 
-Then serve `index.html` and `dist` folder (and optionnaly the `docs` folder) (for example push on GitHub pages).
+Then serve `index.html` and `dist` folder (and optionally the `docs` folder) (for example push on GitHub pages).
 
 ### Server and Client
 
@@ -132,7 +134,7 @@ bun run start
 
 *Access the server at http://localhost:3000/status*
 
-*Acess the client at http://localhost:3000*
+*Access the client at http://localhost:3000*
 
 #### Deployment
 

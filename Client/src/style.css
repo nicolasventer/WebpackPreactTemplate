@@ -1,0 +1,6 @@
+/* === Special styles === */
+
+/* class used in mantine ScrollArea */
+.child-display-block > * > * {
+	display: block !important;
+}
