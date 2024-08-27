@@ -5,7 +5,7 @@ import { useEffect } from "preact/hooks";
 import { ErrorBoundary } from "react-error-boundary";
 import { globalState } from "./context/GlobalState";
 import { HomePage } from "./pages/exports_";
-import type { HomePage as HomePage_ } from "./pages/Home";
+import type { HomePage as _HomePage } from "./pages/Home";
 import { WriteToolboxClasses } from "./utils/ComponentToolbox";
 
 const theme = createTheme({});
@@ -13,7 +13,7 @@ const theme = createTheme({});
 /**
  * Renders all pages of the application based on the URL. All pages are lazy loaded. \
  * It also updates the {@link globalState | `global states`} `isAboveMd` and `isBelowXxs` based on the screen size. \
- * Renders the {@link HomePage_ | `HomePage`} if the URL is `/` or `/coord`.
+ * Renders the {@link _HomePage | `HomePage`} if the URL is `/` or `/coord`.
  * @returns The rendered application.
  */
 export const App = () => {
@@ -24,7 +24,7 @@ export const App = () => {
 	useEffect(() => void (globalState.isBelowXxs.value = !!isBelowXxs), [isBelowXxs]);
 
 	return (
-		<ErrorBoundary fallbackRender={({ error }) => "error: " + JSON.stringify(error)}>
+		<ErrorBoundary fallbackRender={({ error }) => `error: ${JSON.stringify(error)}`}>
 			<WriteToolboxClasses />
 			<MantineProvider theme={theme} defaultColorScheme={globalState.colorScheme.value}>
 				{url.pathname === "/" && <HomePage />}

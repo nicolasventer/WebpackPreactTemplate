@@ -14,19 +14,19 @@ This is the server side of the application.
 
 ## Installation
 
-```bash
+```sh
 bun install
 ```
 
 ## Run
 
-```bash
+```sh
 bun run dev
 ```
 
 ## Launch
 
-```bash
+```sh
 bun run start
 ```
 
@@ -34,24 +34,38 @@ bun run start
 
 Execute tests with:
 
-```bash
+```sh
 bun run test
 ```
 
 Execute tests coverage with:
 
-```bash
+```sh
 bun run cov
 ```
 
 Execute tests coverage and open the report with:
 
-```bash
+```sh
 bun run covhtml
 ```
 
 ## Documentation
 
-```bash
+```sh
 bun run doc
+```
+
+## Lint
+
+Get the linting report with:
+
+```sh
+bun run lint
+```
+
+Fix the linting issues with:
+
+```sh
+bun run lintfix
 ```

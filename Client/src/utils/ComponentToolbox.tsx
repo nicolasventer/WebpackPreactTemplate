@@ -2,6 +2,7 @@ import clsx from "clsx";
 import type { ComponentChildren, JSX } from "preact";
 import { ComponentPropsWithoutRef, createElement } from "preact/compat";
 import { useEffect } from "preact/hooks";
+import { useMount } from "../hooks/useMount";
 
 /**
  * Sets the viewport to be full height and width
@@ -10,7 +11,7 @@ import { useEffect } from "preact/hooks";
  * @param props.children the children to render
  */
 export const FullViewport = ({ selector = "#root", children }: { selector?: string; children?: ComponentChildren }) => {
-	useEffect(() => {
+	useMount(() => {
 		const elStyle = document.createElement("style");
 		elStyle.innerHTML = `
 			html, body, ${selector} {
@@ -21,7 +22,7 @@ export const FullViewport = ({ selector = "#root", children }: { selector?: stri
 		`;
 		elStyle.id = "full-viewport";
 		document.head.appendChild(elStyle);
-	}, []);
+	});
 	return <>{children}</>;
 };
 
@@ -31,8 +32,8 @@ const Style = (css: Partial<CSSStyleDeclaration>) => {
 		_styleTmpEl.style.cssText = "";
 		Object.assign(_styleTmpEl.style, css);
 		return _styleTmpEl.style.cssText;
-	} catch (e) {
-		console.warn(css);
+	} catch {
+		console.warn(`css error with: ${JSON.stringify(css)}`);
 		return css.cssText ?? "";
 	}
 };

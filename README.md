@@ -10,12 +10,13 @@ This is a template for a Preact project. It allows the client either to be stand
 - [x] Tests (server and client)
 - [x] Code coverage (server and client)
 - [x] Documentation (server and client)
+- [x] Linting (server and client)
 
 ## Installation
 
 ### Requirements
 
-```bash
+```sh
 npm install -g -D webpack webpack-cli
 npm install -g nodemon nodemon-webpack-plugin
 ```
@@ -41,7 +42,7 @@ New-Item -ItemType Junction -Name "Client/src/Common" -Target "Server/src/Common
 
 #### Installation
 
-```bash
+```sh
 git clone https://github.com/nicolasventer/Preact-Project-Template.git
 cd Preact-Project-Template
 ./all_init_on_cloned.sh
@@ -50,7 +51,7 @@ cd Preact-Project-Template
 The script will create a symbolic link between the `Common` folder of the `Client` and `Server` folders and then install the dependencies.  
 If you want to install the dependencies manually, you should at least create the symbolic link:
 
-```bash
+```sh
 ln -s Server/src/Common Client/src/Common
 ```
 
@@ -62,7 +63,7 @@ ln -s Server/src/Common Client/src/Common
 
 In the Client folder:
 
-```bash
+```sh
 bun run dev
 ```
 
@@ -74,7 +75,7 @@ bun run dev
 
 In the Client folder, run:
 
-```bash
+```sh
 bun run _build # be sure to type '_build' and not 'build'
 bun run preview
 # bun run doc # for documentation
@@ -86,7 +87,7 @@ bun run preview
 
 In the Client folder, run:
 
-```bash
+```sh
 bun run build
 ```
 
@@ -100,7 +101,7 @@ Then serve `index.html` and `dist` folder (and optionally the `docs` folder) (fo
 
 In the Client folder, run:
 
-```bash
+```sh
 bun run watch
 ```
 
@@ -108,7 +109,7 @@ bun run watch
 
 In the Server folder, run:
 
-```bash
+```sh
 bun run dev
 ```
 
@@ -118,7 +119,7 @@ bun run dev
 
 In the Client folder:
 
-```bash
+```sh
 bun run build
 ```
 
@@ -126,7 +127,7 @@ bun run build
 
 In the Server folder, run:
 
-```bash
+```sh
 bun run start
 ```
 
@@ -157,7 +158,7 @@ You can also take the `docs` folder from the client.
 
 In the Client folder, run:
 
-```bash
+```sh
 bun run _build
 bun run preview
 ```
@@ -166,7 +167,7 @@ bun run preview
 
 In the Server folder, run:
 
-```bash
+```sh
 bun run start
 ```
 
@@ -178,7 +179,7 @@ bun run start
 
 In the Client folder, run:
 
-```bash
+```sh
 bun run build
 ```
 
@@ -186,7 +187,7 @@ bun run build
 
 In the Server folder, run:
 
-```bash
+```sh
 bun run start
 ```
 

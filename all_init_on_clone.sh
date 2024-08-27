@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/sh
 
 ln -s Server/src/Common Client/src/Common
 

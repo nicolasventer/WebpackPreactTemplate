@@ -13,19 +13,19 @@ This is the client side of the application.
 
 ## Installation
 
-```bash
+```sh
 bun install
 ```
 
 ## Run
 
-```bash
+```sh
 bun run dev
 ```
 
 ## Build
 
-```bash
+```sh
 bun run wbuild
 ```
 
@@ -33,30 +33,44 @@ bun run wbuild
 
 Execute tests with:
 
-```bash
+```sh
 bun run test
 ```
 
 Execute tests coverage with:
 
-```bash
+```sh
 bun run cov
 ```
 
 Execute tests in ui with:
 
-```bash
+```sh
 bun run testui
 ```
 
 Execute test codegen with:
 
-```bash
+```sh
 bun run codegen
 ```
 
 ## Documentation
 
-```bash
+```sh
 bun run doc
+```
+
+## Lint
+
+Get the linting report with:
+
+```sh
+bun run lint
+```
+
+Fix the linting issues with:
+
+```sh
+bun run lintfix
 ```

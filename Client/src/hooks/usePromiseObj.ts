@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from "preact/hooks";
+import { useCallback, useState } from "preact/hooks";
+import { useMount } from "./useMount";
 
 /**
  * Hook to run a promise and get the state of it
@@ -28,10 +29,10 @@ export const usePromiseObj = <T, U extends any[], V = unknown>(fn: (...args: U) 
 				throw error;
 			}
 		},
-		[fn]
+		[fn, state]
 	);
 
-	useEffect(() => void (runArgs && run(...runArgs)), []);
+	useMount(() => void (runArgs && run(...runArgs)));
 
 	return {
 		...state,
