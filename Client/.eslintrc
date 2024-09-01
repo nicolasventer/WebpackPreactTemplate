@@ -22,8 +22,11 @@
 				"caughtErrorsIgnorePattern": "^_"
 			}
 		],
+		"no-useless-constructor": "off",
+		"@typescript-eslint/no-useless-constructor": "error",
 		"jest/no-done-callback": "off",
-		"react/jsx-key": "warn"
+		"react/jsx-key": "warn",
+		"react/no-array-index-key": "warn"
 	},
 	"plugins": ["@typescript-eslint"]
 }

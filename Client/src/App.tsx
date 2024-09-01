@@ -1,8 +1,9 @@
 import { createTheme, MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
-import { useMediaQuery } from "@mantine/hooks";
+import { useMediaQuery, useViewportSize } from "@mantine/hooks";
 import { useEffect } from "preact/hooks";
 import { ErrorBoundary } from "react-error-boundary";
+import { Toaster } from "react-hot-toast";
 import { globalState } from "./context/GlobalState";
 import { HomePage } from "./pages/exports_";
 import type { HomePage as _HomePage } from "./pages/Home";
@@ -20,12 +21,15 @@ export const App = () => {
 	const url = new URL(window.location.href);
 	const isAboveMd = useMediaQuery("(min-width: 62em)");
 	const isBelowXxs = useMediaQuery("(max-width: 25em)");
+	const { height, width } = useViewportSize();
 	useEffect(() => void (globalState.isAboveMd.value = !!isAboveMd), [isAboveMd]);
 	useEffect(() => void (globalState.isBelowXxs.value = !!isBelowXxs), [isBelowXxs]);
+	useEffect(() => void (globalState.viewportSize.value = { height, width }), [height, width]);
 
 	return (
 		<ErrorBoundary fallbackRender={({ error }) => `error: ${JSON.stringify(error)}`}>
 			<WriteToolboxClasses />
+			<Toaster position="bottom-center" toastOptions={{ duration: 2000 }} />
 			<MantineProvider theme={theme} defaultColorScheme={globalState.colorScheme.value}>
 				{url.pathname === "/" && <HomePage />}
 				{url.pathname === "/home" && <HomePage />}

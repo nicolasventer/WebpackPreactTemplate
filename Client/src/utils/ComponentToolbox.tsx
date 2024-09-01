@@ -90,14 +90,58 @@ export const LDisplayValues = ["hDisplay", "vDisplay", "overlap"] as const;
 export type LDisplayType = (typeof LDisplayValues)[number];
 
 /**
+ * Get the padding properties
+ * @param param
+ * @param param.padding the padding value
+ * @param param.paddingTop the padding top value
+ * @param param.paddingLeft the padding left value
+ * @returns the padding properties
+ */
+const getPadding = ({
+	padding,
+	paddingTop,
+	paddingLeft,
+}: {
+	paddingTop?: CssProperty;
+	paddingLeft?: CssProperty;
+	padding?: CssProperty;
+}) => (padding ? { padding } : { paddingTop, paddingLeft });
+
+/**
+ * Get the margin properties
+ * @param param
+ * @param param.margin the margin value
+ * @param param.marginTop the margin top value
+ * @param param.marginLeft the margin left value
+ * @returns the margin properties
+ */
+const getMargin = ({
+	margin,
+	marginTop,
+	marginLeft,
+}: {
+	marginTop?: CssProperty;
+	marginLeft?: CssProperty;
+	margin?: CssProperty;
+}) => (margin ? { margin } : { marginTop, marginLeft });
+
+/**
  * A flex box
  * @param props div props and lDisplay, alignItems and justifyContent
  * @param props.lDisplay the display type
  * @param props.alignItems the align items value
  * @param props.justifyContent the justify content value
  * @param props.gap the gap value
+ * @param props.width the width value
+ * @param props.widthMaxContent set the width to max-content
+ * @param props.height the height value
+ * @param props.heightMaxContent set the height to max-content
  * @param props.padding the padding value
+ * @param props.paddingTop the padding top value
+ * @param props.paddingLeft the padding left value
  * @param props.margin the margin value
+ * @param props.marginTop the margin top value
+ * @param props.marginLeft the margin left value
  * @param props.flexGrow the flex grow value
  * @returns a div with the flex box properties
  */
@@ -106,8 +150,16 @@ export const LDisplay = ({
 	alignItems,
 	justifyContent,
 	gap,
+	width,
+	widthMaxContent,
+	height,
+	heightMaxContent,
 	padding,
+	paddingTop,
+	paddingLeft,
 	margin,
+	marginTop,
+	marginLeft,
 	flexGrow,
 	...divProps
 }: {
@@ -115,7 +167,15 @@ export const LDisplay = ({
 	alignItems?: AlignItemsType;
 	justifyContent?: JustifyContentType;
 	gap?: CssProperty;
+	width?: CssProperty;
+	widthMaxContent?: boolean;
+	height?: CssProperty;
+	heightMaxContent?: boolean;
+	paddingTop?: CssProperty;
+	paddingLeft?: CssProperty;
 	padding?: CssProperty;
+	marginTop?: CssProperty;
+	marginLeft?: CssProperty;
 	margin?: CssProperty;
 	flexGrow?: CssProperty;
 } & ComponentPropsWithoutRef<"div">) => (
@@ -126,8 +186,10 @@ export const LDisplay = ({
 			alignItems,
 			justifyContent,
 			gap,
-			padding,
-			margin,
+			width: widthMaxContent ? "max-content" : width,
+			height: heightMaxContent ? "max-content" : height,
+			...getPadding({ padding, paddingTop, paddingLeft }),
+			...getMargin({ margin, marginTop, marginLeft }),
 			flexGrow,
 			...(typeof divProps.style === "object" ? divProps.style : {}),
 		}}
@@ -207,28 +269,53 @@ export const GetIntrinsicComp =
  * A box component
  * @param props div props and width and height
  * @param props.width the width of the box
+ * @param props.widthMaxContent set the width to max-content
  * @param props.height the height of the box
+ * @param props.heightMaxContent set the height to max-content
  * @param props.padding the padding of the box
+ * @param props.paddingTop the padding top of the box
+ * @param props.paddingLeft the padding left of the box
  * @param props.margin the margin of the box
+ * @param props.marginTop the margin top of the box
+ * @param props.marginLeft the margin left of the box
  * @param props.flexGrow the flex grow of the box
  * @returns a div with the width, height, padding, and margin properties
  */
 export const Box = ({
 	width,
+	widthMaxContent,
 	height,
+	heightMaxContent,
 	padding,
+	paddingTop,
+	paddingLeft,
 	margin,
+	marginTop,
+	marginLeft,
 	flexGrow,
 	...divProps
 }: {
 	width?: CssProperty;
+	widthMaxContent?: boolean;
 	height?: CssProperty;
+	heightMaxContent?: boolean;
 	padding?: CssProperty;
+	paddingTop?: CssProperty;
+	paddingLeft?: CssProperty;
 	margin?: CssProperty;
+	marginTop?: CssProperty;
+	marginLeft?: CssProperty;
 	flexGrow?: CssProperty;
 } & ComponentPropsWithoutRef<"div">) => (
 	<div
 		{...divProps}
-		style={{ width, height, padding, margin, flexGrow, ...(typeof divProps.style === "object" ? { ...divProps.style } : {}) }}
+		style={{
+			width: widthMaxContent ? "max-content" : width,
+			height: heightMaxContent ? "max-content" : height,
+			...getPadding({ padding, paddingTop, paddingLeft }),
+			...getMargin({ margin, marginTop, marginLeft }),
+			flexGrow,
+			...(typeof divProps.style === "object" ? { ...divProps.style } : {}),
+		}}
 	/>
 );

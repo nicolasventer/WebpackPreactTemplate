@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 
 /**
- * A function that creates a toast that says the given description is not implemented yet
+ * Creates a toast that says the given description is not implemented yet
  * @param description the description of the feature that is not implemented yet
  */
 export const TodoFn = (description: string) => () => toast(`${description} is not implemented yet`, { icon: "⏳" });
@@ -16,3 +16,32 @@ export const TodoFn = (description: string) => () => toast(`${description} is no
  * @returns The width size object as a string.
  */
 export const widthSizeObj = <T extends number>(size: T, scale = 10) => `min(${size}vw, ${size * scale}px)` as const;
+
+/**
+ * Class that generates unique ids for objects.
+ * @example
+ * const exampleGenerator = new IdGenerator("key");
+ * const a = exampleGenerator.withId({ name: "John" }); // { name: "John", key: 0 }
+ * const b = exampleGenerator.withId(10); // { key: 1, data: 10 }
+ * @template T - The type of the key parameter.
+ * @param {T} key - The key to use for the id.
+ * @returns The id generator object.
+ */
+export class IdGenerator<T extends string> {
+	constructor(private key: T) {}
+	private id = 0;
+	/**
+	 * Adds an id to the given object.
+	 * @template U - The type of the data.
+	 * @param {U} obj - If the data is an object, it adds the id to the object. Otherwise, it returns an object with the id and the data.
+	 * @returns The object with the id.
+	 */
+	withId = <U>(
+		obj: U
+	): U extends object
+		? U & { [K in T]: number }
+		: { [K in T]: number } & {
+				/** The data */
+				data: U;
+		  } => (typeof obj === "object" ? ({ ...obj, [this.key]: this.id++ } as any) : ({ [this.key]: this.id++, data: obj } as any));
+}

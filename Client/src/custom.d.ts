@@ -1,8 +1,6 @@
-import type { FunctionComponent } from "preact";
-import { SVGAttributes } from "preact/compat";
-
 declare module "*.svg" {
-	const content: FunctionComponent<SVGAttributes<SVGElement>>;
+	// eslint-disable-next-line no-undef
+	const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
 	export default content;
 }
 declare module "*.jpg" {

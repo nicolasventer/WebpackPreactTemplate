@@ -6,6 +6,7 @@
 		"rebuild": "cmd /c 'del /Q 2>NUL dist && webpack'",
 		"watch": "webpack --watch",
 		"dev": "bunx --bun vite",
+		"devhost": "bunx --bun vite --host",
 		"_build": "vite build # do not used since not working with CSR",
 		"build": "bun run wbuild # build with webpack for CSR",
 		"preview": "vite preview",
@@ -24,6 +25,7 @@
 		"@playwright/test": "^1.46.1",
 		"@svgr/webpack": "^8.1.0",
 		"@types/bun": "^1.1.6",
+		"@types/dom-view-transitions": "^1.0.5",
 		"@types/node": "^22.4.1",
 		"@typescript-eslint/eslint-plugin": "^8.3.0",
 		"@zamiell/typedoc-plugin-not-exported": "^0.3.0",
@@ -51,7 +53,8 @@
 		"lucide-react": "^0.428.0",
 		"preact": "^10.23.2",
 		"react-error-boundary": "^4.0.13",
-		"react-hot-toast": "^2.4.1"
+		"react-hot-toast": "^2.4.1",
+		"react-icons": "^5.3.0"
 	},
 	"eslintConfig": {
 		"extends": "preact"

@@ -1,7 +1,10 @@
 import { ActionIcon, useMantineColorScheme } from "@mantine/core";
+import { signal } from "@preact/signals";
 import { Moon, Sun } from "lucide-react";
 import { globalState } from "../context/GlobalState";
 import { widthSizeObj } from "../utils/commonUtils";
+
+const isColorSchemeLoading = signal(false);
 
 /**
  * A button that toggles between light and dark mode
@@ -11,17 +14,21 @@ export const DarkModeButton = () => {
 	const { setColorScheme } = useMantineColorScheme();
 
 	const setModeFn = (mode: "light" | "dark") => () => {
-		setColorScheme(mode);
-		globalState.colorScheme.value = mode;
+		isColorSchemeLoading.value = true;
+		setTimeout(() => {
+			setColorScheme(mode);
+			globalState.colorScheme.value = mode;
+			isColorSchemeLoading.value = false;
+		}, 100);
 	};
 
 	return (
-		<ActionIcon>
+		<ActionIcon loading={isColorSchemeLoading.value}>
 			{globalState.colorScheme.value === "dark" && (
-				<Sun width={widthSizeObj(4, 6)} id={"light-mode-button"} onClick={setModeFn("light")} style={{ marginBottom: 1 }} />
+				<Sun width={widthSizeObj(3.5, 6)} id={"light-mode-button"} onClick={setModeFn("light")} style={{ marginBottom: 1 }} />
 			)}
 			{globalState.colorScheme.value === "light" && (
-				<Moon width={widthSizeObj(4, 6)} id={"dark-mode-button"} onClick={setModeFn("dark")} style={{ marginBottom: 1 }} />
+				<Moon width={widthSizeObj(3.5, 6)} id={"dark-mode-button"} onClick={setModeFn("dark")} style={{ marginBottom: 1 }} />
 			)}
 		</ActionIcon>
 	);
