@@ -3,5 +3,6 @@ declare namespace NodeJS {
 		USE_COVERAGE?: "true";
 		USE_HTML?: "true";
 		USE_CSR?: "true";
+		USE_HTTPS?: "true";
 	}
 }

@@ -1,5 +1,6 @@
 import { Button } from "@mantine/core";
 import { DarkModeButton } from "../components/DarkModeButton";
+import { WakeLockButton } from "../components/WakeLockButton";
 import { FullViewport } from "../utils/ComponentToolbox";
 
 /**
@@ -11,5 +12,6 @@ export const HomePage = () => (
 		Home
 		<Button>Button</Button>
 		<DarkModeButton />
+		<WakeLockButton />
 	</FullViewport>
 );

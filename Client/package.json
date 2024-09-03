@@ -7,6 +7,8 @@
 		"watch": "webpack --watch",
 		"dev": "bunx --bun vite",
 		"devhost": "bunx --bun vite --host",
+		"devhttps": "cross-env USE_HTTPS=true npx vite",
+		"devhttpshost": "cross-env USE_HTTPS=true npx vite --host",
 		"_build": "vite build # do not used since not working with CSR",
 		"build": "bun run wbuild # build with webpack for CSR",
 		"preview": "vite preview",
@@ -40,6 +42,7 @@
 		"style-loader": "^4.0.0",
 		"ts-loader": "^9.5.1",
 		"tslib": "^2.6.3",
+		"vite-plugin-mkcert": "^1.17.6",
 		"webpack-cli": "^5.1.4"
 	},
 	"dependencies": {
