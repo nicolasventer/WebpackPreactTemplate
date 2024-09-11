@@ -1,7 +1,7 @@
 import cors from "@elysiajs/cors";
 import swagger from "@elysiajs/swagger";
 import Elysia from "elysia";
-import { closeSync, fstatSync, openSync, readdirSync, watchFile } from "fs";
+import { closeSync, existsSync, fstatSync, openSync, readdirSync, watchFile } from "fs";
 import path from "path";
 import Watcher from "watcher";
 import { PORT, SRV_URL } from "./Common/CommonConfig";
@@ -14,9 +14,11 @@ const PAGE_PATH = path.join(CLIENT_PATH, "page.html");
 const distFiles = readdirSync(DIST_PATH, { withFileTypes: true, recursive: true })
 	.filter((file) => file.isFile())
 	.map((file) => path.join(file.parentPath, file.name));
-const docsFiles = readdirSync(DOCS_PATH, { withFileTypes: true, recursive: true })
-	.filter((file) => file.isFile())
-	.map((file) => path.join(file.parentPath, file.name));
+const docsFiles = existsSync(DOCS_PATH)
+	? readdirSync(DOCS_PATH, { withFileTypes: true, recursive: true })
+			.filter((file) => file.isFile())
+			.map((file) => path.join(file.parentPath, file.name))
+	: [];
 const pageFile = PAGE_PATH;
 
 const files = [pageFile, ...distFiles, ...docsFiles];

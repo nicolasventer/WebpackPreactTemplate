@@ -13,6 +13,9 @@ let showToasts = true;
 let wakeLockObj: WakeLockSentinel | null = null;
 const isWakeLockLoading = signal(false);
 
+/**
+ * Toggles the wake lock
+ */
 export const toggleWakeLock = () => {
 	if ("wakeLock" in navigator) {
 		if (wakeLockObj) {
@@ -52,7 +55,6 @@ export const toggleWakeLock = () => {
 
 /**
  * Automatically toggles the wake lock when the document is visible. (toasts are disabled)
- * @returns
  */
 export const automaticWakeLock = () => {
 	showToasts = false;

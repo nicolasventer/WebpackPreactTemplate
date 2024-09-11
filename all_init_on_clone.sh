@@ -1,11 +1,12 @@
 #!/usr/bin/sh
 
-ln -s Server/src/Common Client/src/Common
-
 cd Server
 bun install
 
-cd ../Client
+cd ../Client/src
+ln -s ../../Server/src/Common .
+
+cd ..
 bun install
 bun run build
 

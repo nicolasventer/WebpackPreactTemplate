@@ -1,7 +1,11 @@
 import { Button } from "@mantine/core";
+import { signal } from "@preact/signals";
 import { DarkModeButton } from "../components/DarkModeButton";
 import { WakeLockButton } from "../components/WakeLockButton";
 import { FullViewport } from "../utils/ComponentToolbox";
+
+const useTransition = signal(true);
+const toggleUseTransition = () => (useTransition.value = !useTransition.value);
 
 /**
  * Home page
@@ -10,15 +14,8 @@ import { FullViewport } from "../utils/ComponentToolbox";
 export const HomePage = () => (
 	<FullViewport>
 		Home
-		<Button>Button</Button>
-		<div>
-			<span>With transition: </span>
-			<DarkModeButton useTransition />
-		</div>
-		<div>
-			<span>With loading: </span>
-			<DarkModeButton useTransition={false} />
-		</div>
+		<Button onClick={toggleUseTransition}>{`${useTransition.value ? "Disable" : "Enable"} transition`}</Button>
+		<DarkModeButton useTransition={useTransition.value} />
 		<WakeLockButton />
 	</FullViewport>
 );

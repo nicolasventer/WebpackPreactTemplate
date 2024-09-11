@@ -17,6 +17,7 @@ This is a template for a Preact project. It allows the client either to be stand
 ### Requirements
 
 ```sh
+npm install -g bun
 npm install -g -D webpack webpack-cli
 npm install -g nodemon nodemon-webpack-plugin
 ```
@@ -28,6 +29,7 @@ npm install -g nodemon nodemon-webpack-plugin
 ```ps1
 git clone https://github.com/nicolasventer/Preact-Project-Template.git
 Set-Location Preact-Project-Template
+Set-ExecutionPolicy Unrestricted
 all_init_on_cloned.ps1
 ```
 
@@ -52,7 +54,8 @@ The script will create a symbolic link between the `Common` folder of the `Clien
 If you want to install the dependencies manually, you should at least create the symbolic link:
 
 ```sh
-ln -s Server/src/Common Client/src/Common
+cd ../Client/src
+ln -s ../../Server/src/Common .
 ```
 
 ## Usage

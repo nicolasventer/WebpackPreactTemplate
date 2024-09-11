@@ -1,6 +1,7 @@
 import { Type as t, type TSchema } from "@sinclair/typebox";
 import { checkEnumObj } from "./CommonUtils";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Nullable = <T extends TSchema>(type: T) => t.Union([type, t.Null()]);
 
 /** Color scheme values */
