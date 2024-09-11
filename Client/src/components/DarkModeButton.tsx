@@ -1,6 +1,7 @@
 import { ActionIcon, useMantineColorScheme } from "@mantine/core";
 import { signal } from "@preact/signals";
 import { Moon, Sun } from "lucide-react";
+import { flushSync } from "preact/compat";
 import { globalState } from "../context/GlobalState";
 import { widthSizeObj } from "../utils/commonUtils";
 
@@ -10,16 +11,25 @@ const isColorSchemeLoading = signal(false);
  * A button that toggles between light and dark mode
  * @returns a button that toggles between light and dark mode
  */
-export const DarkModeButton = () => {
+export const DarkModeButton = ({ useTransition }: { useTransition: boolean }) => {
 	const { setColorScheme } = useMantineColorScheme();
 
 	const setModeFn = (mode: "light" | "dark") => () => {
-		isColorSchemeLoading.value = true;
-		setTimeout(() => {
-			setColorScheme(mode);
-			globalState.colorScheme.value = mode;
-			isColorSchemeLoading.value = false;
-		}, 100);
+		if (useTransition) {
+			document.startViewTransition(() =>
+				flushSync(() => {
+					setColorScheme(mode);
+					globalState.colorScheme.value = mode;
+				})
+			);
+		} else {
+			isColorSchemeLoading.value = true;
+			setTimeout(() => {
+				setColorScheme(mode);
+				globalState.colorScheme.value = mode;
+				isColorSchemeLoading.value = false;
+			}, 100);
+		}
 	};
 
 	return (

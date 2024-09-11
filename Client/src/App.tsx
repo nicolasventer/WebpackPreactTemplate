@@ -1,6 +1,6 @@
 import { createTheme, MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
-import { useMediaQuery, useViewportSize } from "@mantine/hooks";
+import { useDocumentVisibility, useMediaQuery, useViewportSize } from "@mantine/hooks";
 import { useEffect } from "preact/hooks";
 import { ErrorBoundary } from "react-error-boundary";
 import { Toaster } from "react-hot-toast";
@@ -22,9 +22,11 @@ export const App = () => {
 	const isAboveMd = useMediaQuery("(min-width: 62em)");
 	const isBelowXxs = useMediaQuery("(max-width: 25em)");
 	const { height, width } = useViewportSize();
+	const documentVisibility = useDocumentVisibility();
 	useEffect(() => void (globalState.isAboveMd.value = !!isAboveMd), [isAboveMd]);
 	useEffect(() => void (globalState.isBelowXxs.value = !!isBelowXxs), [isBelowXxs]);
 	useEffect(() => void (globalState.viewportSize.value = { height, width }), [height, width]);
+	useEffect(() => void (globalState.isDocumentVisible.value = documentVisibility === "visible"), [documentVisibility]);
 
 	return (
 		<ErrorBoundary fallbackRender={({ error }) => `error: ${JSON.stringify(error)}`}>

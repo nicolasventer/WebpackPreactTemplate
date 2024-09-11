@@ -1,5 +1,5 @@
 import { ActionIcon } from "@mantine/core";
-import { signal } from "@preact/signals";
+import { effect, signal } from "@preact/signals";
 import { Lock, LockOpen } from "lucide-react";
 import toast from "react-hot-toast";
 import { globalState } from "../context/GlobalState";
@@ -7,11 +7,13 @@ import { widthSizeObj } from "../utils/commonUtils";
 
 const isWakeLockAvailable = "wakeLock" in navigator || "keepAwake" in screen;
 
+let showToasts = true;
+
 // eslint-disable-next-line no-undef
 let wakeLockObj: WakeLockSentinel | null = null;
 const isWakeLockLoading = signal(false);
 
-const toggleWakeLock = () => {
+export const toggleWakeLock = () => {
 	if ("wakeLock" in navigator) {
 		if (wakeLockObj) {
 			wakeLockObj.release();
@@ -26,25 +28,35 @@ const toggleWakeLock = () => {
 					isWakeLockLoading.value = false;
 
 					wakeLockObj.addEventListener("release", () => {
-						toast("Automatic screen lock enabled", { icon: "🔓" });
+						showToasts && toast("Automatic screen lock enabled", { icon: "🔓" });
+						globalState.isWakeLock.value = false;
 						wakeLockObj = null;
 					});
 
 					globalState.isWakeLock.value = true;
-					toast("Automatic screen lock disabled", { icon: "🔒" });
+					showToasts && toast("Automatic screen lock disabled", { icon: "🔒" });
 				})
 				.catch((err) => {
-					console.error(err);
+					showToasts && console.error(err);
 					isWakeLockLoading.value = false;
-					toast("Error while trying to keep screen locked on", { icon: "❌" });
+					showToasts && toast("Error while trying to keep screen locked on", { icon: "❌" });
 				});
 		}
 	} else if ("keepAwake" in screen) {
 		screen.keepAwake = !screen.keepAwake;
 		globalState.isWakeLock.value = !!screen.keepAwake;
-		if (screen.keepAwake) toast("Automatic screen lock disabled", { icon: "🔒" });
-		else toast("Automatic screen lock enabled", { icon: "🔓" });
+		if (screen.keepAwake) showToasts && toast("Automatic screen lock disabled", { icon: "🔒" });
+		else showToasts && toast("Automatic screen lock enabled", { icon: "🔓" });
 	}
+};
+
+/**
+ * Automatically toggles the wake lock when the document is visible. (toasts are disabled)
+ * @returns
+ */
+export const automaticWakeLock = () => {
+	showToasts = false;
+	effect(() => void (globalState.isDocumentVisible.value && !globalState.isWakeLock.value && toggleWakeLock()));
 };
 
 /**

@@ -11,7 +11,14 @@ export const HomePage = () => (
 	<FullViewport>
 		Home
 		<Button>Button</Button>
-		<DarkModeButton />
+		<div>
+			<span>With transition: </span>
+			<DarkModeButton useTransition />
+		</div>
+		<div>
+			<span>With loading: </span>
+			<DarkModeButton useTransition={false} />
+		</div>
 		<WakeLockButton />
 	</FullViewport>
 );
