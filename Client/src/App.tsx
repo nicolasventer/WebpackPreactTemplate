@@ -32,7 +32,7 @@ export const App = () => {
 		<ErrorBoundary fallbackRender={({ error }) => `error: ${JSON.stringify(error)}`}>
 			<WriteToolboxClasses />
 			<Toaster position="bottom-center" toastOptions={{ duration: 2000 }} />
-			<MantineProvider theme={theme} defaultColorScheme={globalState.colorScheme.value}>
+			<MantineProvider theme={theme} forceColorScheme={globalState.colorScheme.value}>
 				{url.pathname === "/" && <HomePage />}
 				{url.pathname === "/home" && <HomePage />}
 			</MantineProvider>
