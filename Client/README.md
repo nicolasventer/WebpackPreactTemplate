@@ -8,7 +8,7 @@ This is the client side of the application.
 
 - [bun](https://bun.sh/)
 - [typedoc](https://typedoc.org/)
-- [webpack](https://www.npmjs.com/package/webpack)
+- [serve](https://www.npmjs.com/package/serve)
 - [playwright](https://playwright.dev/) + ([VsCode extension](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright))
 
 ## Installation
@@ -26,7 +26,7 @@ bun run dev
 ## Build
 
 ```sh
-bun run wbuild
+bun run build
 ```
 
 ## Test

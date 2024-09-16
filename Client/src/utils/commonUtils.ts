@@ -45,3 +45,18 @@ export class IdGenerator<T extends string> {
 				data: U;
 		  } => (typeof obj === "object" ? ({ ...obj, [this.key]: this.id++ } as any) : ({ [this.key]: this.id++, data: obj } as any));
 }
+
+/**
+ * Debounces the given function.
+ * @param fn The function to debounce.
+ * @param ms The milliseconds to wait before calling the function.
+ * @returns The debounced function.
+ */
+export const debounceFn = (fn: Function, ms: number) => {
+	// eslint-disable-next-line no-undef
+	let timeout: Timer;
+	return <T extends any[]>(...args: T) => {
+		clearTimeout(timeout);
+		timeout = setTimeout(() => fn(...args), ms);
+	};
+};

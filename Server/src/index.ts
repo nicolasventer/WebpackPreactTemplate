@@ -1,7 +1,7 @@
 import cors from "@elysiajs/cors";
 import swagger from "@elysiajs/swagger";
 import Elysia from "elysia";
-import { closeSync, existsSync, fstatSync, openSync, readdirSync, watchFile } from "fs";
+import { closeSync, existsSync, fstatSync, openSync, readdirSync } from "fs";
 import path from "path";
 import Watcher from "watcher";
 import { PORT, SRV_URL } from "./Common/CommonConfig";
@@ -9,7 +9,6 @@ import { PORT, SRV_URL } from "./Common/CommonConfig";
 const CLIENT_PATH = path.join(__dirname, "../../Client");
 const DIST_PATH = path.join(CLIENT_PATH, "dist");
 const DOCS_PATH = path.join(CLIENT_PATH, "docs");
-const PAGE_PATH = path.join(CLIENT_PATH, "page.html");
 
 const distFiles = readdirSync(DIST_PATH, { withFileTypes: true, recursive: true })
 	.filter((file) => file.isFile())
@@ -19,9 +18,8 @@ const docsFiles = existsSync(DOCS_PATH)
 			.filter((file) => file.isFile())
 			.map((file) => path.join(file.parentPath, file.name))
 	: [];
-const pageFile = PAGE_PATH;
 
-const files = [pageFile, ...distFiles, ...docsFiles];
+const files = [...distFiles, ...docsFiles];
 
 const filesContent = await (async () => {
 	const result = {} as Record<string, string>;
@@ -70,14 +68,6 @@ watcher.on("change", updateFile);
 watcher.on("rename", deleteFile);
 watcher.on("unlink", deleteFile);
 
-watchFile(pageFile, (curr, prev) => {
-	if (curr.size === prev.size) return;
-	Bun.file(pageFile)
-		.text()
-		.then((content) => (filesContent[pageFile] = content));
-	console.log("Page file updated:", pageFile);
-});
-
 const mimeTypes = {
 	".html": "text/html",
 	".css": "text/css",
@@ -104,7 +94,8 @@ export const app = new Elysia()
 	.use(cors())
 	.use(swagger())
 	.get("*", (req) => {
-		const pathname = req.path === "/" ? "/page.html" : req.path === "/docs/" ? "/docs/index.html" : req.path;
+		const reqPath = req.path.startsWith("/dist/") || req.path.startsWith("/docs/") ? req.path : `/dist${req.path}`;
+		const pathname = reqPath === "/dist/" ? "/dist/index.html" : reqPath === "/docs/" ? "/docs/index.html" : reqPath;
 		const joinedPath = path.join(CLIENT_PATH, pathname);
 		console.log("joinedPath:", joinedPath);
 		if (files.includes(joinedPath))

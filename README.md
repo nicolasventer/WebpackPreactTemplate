@@ -18,8 +18,7 @@ This is a template for a Preact project. It allows the client either to be stand
 
 ```sh
 npm install -g bun
-npm install -g -D webpack webpack-cli
-npm install -g nodemon nodemon-webpack-plugin
+npm install -g serve
 ```
 
 ### On Windows:
@@ -79,7 +78,7 @@ bun run dev
 In the Client folder, run:
 
 ```sh
-bun run _build # be sure to type '_build' and not 'build'
+bun run build
 bun run preview
 # bun run doc # for documentation
 ```
@@ -94,8 +93,6 @@ In the Client folder, run:
 bun run build
 ```
 
-*In case you have an issue with the webpack build, you can use the plugin `vite-plugin-singlefile`.*
-
 Then serve `index.html` and `dist` folder (and optionally the `docs` folder) (for example push on GitHub pages).
 
 ### Server and Client
@@ -107,8 +104,6 @@ In the Client folder, run:
 ```sh
 bun run watch
 ```
-
-*If no server is needed, you can consider the usage of the VS Code extension: [Live Server extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server).*
 
 In the Server folder, run:
 
@@ -162,7 +157,7 @@ You can also take the `docs` folder from the client.
 In the Client folder, run:
 
 ```sh
-bun run _build
+bun run build
 bun run preview
 ```
 
@@ -196,6 +191,6 @@ bun run start
 
 *Access the server at http://localhost:3000/status*
 
-*Acess the client at http://localhost:3000*
+*Access the client at http://localhost:3000*
 
 ![client_side_rendering](misc/d2/client_side_rendering.png)

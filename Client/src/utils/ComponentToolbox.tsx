@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import type { ComponentChildren, JSX } from "preact";
-import { ComponentPropsWithoutRef, createElement } from "preact/compat";
+import { ComponentPropsWithoutRef, createElement, ForwardedRef, forwardRef } from "preact/compat";
 import { useEffect } from "preact/hooks";
 import { useMount } from "../hooks/useMount";
 
@@ -145,55 +145,61 @@ const getMargin = ({
  * @param props.flexGrow the flex grow value
  * @returns a div with the flex box properties
  */
-export const LDisplay = ({
-	lDisplay,
-	alignItems,
-	justifyContent,
-	gap,
-	width,
-	widthMaxContent,
-	height,
-	heightMaxContent,
-	padding,
-	paddingTop,
-	paddingLeft,
-	margin,
-	marginTop,
-	marginLeft,
-	flexGrow,
-	...divProps
-}: {
-	lDisplay: LDisplayType;
-	alignItems?: AlignItemsType;
-	justifyContent?: JustifyContentType;
-	gap?: CssProperty;
-	width?: CssProperty;
-	widthMaxContent?: boolean;
-	height?: CssProperty;
-	heightMaxContent?: boolean;
-	paddingTop?: CssProperty;
-	paddingLeft?: CssProperty;
-	padding?: CssProperty;
-	marginTop?: CssProperty;
-	marginLeft?: CssProperty;
-	margin?: CssProperty;
-	flexGrow?: CssProperty;
-} & ComponentPropsWithoutRef<"div">) => (
-	<div
-		{...divProps}
-		className={clsx(lDisplay, divProps.class, divProps.className)}
-		style={{
+export const LDisplay = forwardRef(
+	(
+		{
+			lDisplay,
 			alignItems,
 			justifyContent,
 			gap,
-			width: widthMaxContent ? "max-content" : width,
-			height: heightMaxContent ? "max-content" : height,
-			...getPadding({ padding, paddingTop, paddingLeft }),
-			...getMargin({ margin, marginTop, marginLeft }),
+			width,
+			widthMaxContent,
+			height,
+			heightMaxContent,
+			padding,
+			paddingTop,
+			paddingLeft,
+			margin,
+			marginTop,
+			marginLeft,
 			flexGrow,
-			...(typeof divProps.style === "object" ? divProps.style : {}),
-		}}
-	/>
+			...divProps
+		}: {
+			lDisplay: LDisplayType;
+			alignItems?: AlignItemsType;
+			justifyContent?: JustifyContentType;
+			gap?: CssProperty;
+			width?: CssProperty;
+			widthMaxContent?: boolean;
+			height?: CssProperty;
+			heightMaxContent?: boolean;
+			paddingTop?: CssProperty;
+			paddingLeft?: CssProperty;
+			padding?: CssProperty;
+			marginTop?: CssProperty;
+			marginLeft?: CssProperty;
+			margin?: CssProperty;
+			flexGrow?: CssProperty;
+		} & ComponentPropsWithoutRef<"div">,
+		ref: ForwardedRef<HTMLDivElement>
+	) => (
+		<div
+			{...divProps}
+			ref={ref}
+			className={clsx(lDisplay, divProps.class, divProps.className)}
+			style={{
+				alignItems,
+				justifyContent,
+				gap,
+				width: widthMaxContent ? "max-content" : width,
+				height: heightMaxContent ? "max-content" : height,
+				...getPadding({ padding, paddingTop, paddingLeft }),
+				...getMargin({ margin, marginTop, marginLeft }),
+				flexGrow,
+				...(typeof divProps.style === "object" ? divProps.style : {}),
+			}}
+		/>
+	)
 );
 
 /**
@@ -202,8 +208,10 @@ export const LDisplay = ({
  * @param props div props
  * @returns a div with the horizontal flex box properties
  */
-export const HDisplay = (props: Omit<ComponentPropsWithoutRef<typeof LDisplay>, "lDisplay">) => (
-	<LDisplay alignItems="center" {...props} lDisplay="hDisplay" />
+export const HDisplay = forwardRef(
+	(props: Omit<ComponentPropsWithoutRef<typeof LDisplay>, "lDisplay">, ref: ForwardedRef<HTMLDivElement>) => (
+		<LDisplay ref={ref} alignItems="center" {...props} lDisplay="hDisplay" />
+	)
 );
 
 /**
@@ -212,8 +220,10 @@ export const HDisplay = (props: Omit<ComponentPropsWithoutRef<typeof LDisplay>, 
  * @param props div props
  * @returns a div with the vertical flex box properties
  */
-export const VDisplay = (props: Omit<ComponentPropsWithoutRef<typeof LDisplay>, "lDisplay">) => (
-	<LDisplay {...props} lDisplay="vDisplay" />
+export const VDisplay = forwardRef(
+	(props: Omit<ComponentPropsWithoutRef<typeof LDisplay>, "lDisplay">, ref: ForwardedRef<HTMLDivElement>) => (
+		<LDisplay ref={ref} {...props} lDisplay="vDisplay" />
+	)
 );
 
 /**
@@ -222,8 +232,10 @@ export const VDisplay = (props: Omit<ComponentPropsWithoutRef<typeof LDisplay>, 
  * @param props div props
  * @returns a div with the overlap flex box properties
  */
-export const Overlap = (props: Omit<ComponentPropsWithoutRef<typeof LDisplay>, "lDisplay">) => (
-	<LDisplay {...props} lDisplay="overlap" />
+export const Overlap = forwardRef(
+	(props: Omit<ComponentPropsWithoutRef<typeof LDisplay>, "lDisplay">, ref: ForwardedRef<HTMLDivElement>) => (
+		<LDisplay ref={ref} {...props} lDisplay="overlap" />
+	)
 );
 
 /**
@@ -281,41 +293,47 @@ export const GetIntrinsicComp =
  * @param props.flexGrow the flex grow of the box
  * @returns a div with the width, height, padding, and margin properties
  */
-export const Box = ({
-	width,
-	widthMaxContent,
-	height,
-	heightMaxContent,
-	padding,
-	paddingTop,
-	paddingLeft,
-	margin,
-	marginTop,
-	marginLeft,
-	flexGrow,
-	...divProps
-}: {
-	width?: CssProperty;
-	widthMaxContent?: boolean;
-	height?: CssProperty;
-	heightMaxContent?: boolean;
-	padding?: CssProperty;
-	paddingTop?: CssProperty;
-	paddingLeft?: CssProperty;
-	margin?: CssProperty;
-	marginTop?: CssProperty;
-	marginLeft?: CssProperty;
-	flexGrow?: CssProperty;
-} & ComponentPropsWithoutRef<"div">) => (
-	<div
-		{...divProps}
-		style={{
-			width: widthMaxContent ? "max-content" : width,
-			height: heightMaxContent ? "max-content" : height,
-			...getPadding({ padding, paddingTop, paddingLeft }),
-			...getMargin({ margin, marginTop, marginLeft }),
+export const Box = forwardRef(
+	(
+		{
+			width,
+			widthMaxContent,
+			height,
+			heightMaxContent,
+			padding,
+			paddingTop,
+			paddingLeft,
+			margin,
+			marginTop,
+			marginLeft,
 			flexGrow,
-			...(typeof divProps.style === "object" ? { ...divProps.style } : {}),
-		}}
-	/>
+			...divProps
+		}: {
+			width?: CssProperty;
+			widthMaxContent?: boolean;
+			height?: CssProperty;
+			heightMaxContent?: boolean;
+			padding?: CssProperty;
+			paddingTop?: CssProperty;
+			paddingLeft?: CssProperty;
+			margin?: CssProperty;
+			marginTop?: CssProperty;
+			marginLeft?: CssProperty;
+			flexGrow?: CssProperty;
+		} & ComponentPropsWithoutRef<"div">,
+		ref: ForwardedRef<HTMLDivElement>
+	) => (
+		<div
+			ref={ref}
+			{...divProps}
+			style={{
+				width: widthMaxContent ? "max-content" : width,
+				height: heightMaxContent ? "max-content" : height,
+				...getPadding({ padding, paddingTop, paddingLeft }),
+				...getMargin({ margin, marginTop, marginLeft }),
+				flexGrow,
+				...(typeof divProps.style === "object" ? { ...divProps.style } : {}),
+			}}
+		/>
+	)
 );
