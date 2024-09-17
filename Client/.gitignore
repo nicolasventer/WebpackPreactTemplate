@@ -137,3 +137,4 @@ blob-report/
 playwright/.cache/
 coverage-reports/
 src/Common/
+clientEnv.ts
