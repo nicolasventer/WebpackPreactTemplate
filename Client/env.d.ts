@@ -4,5 +4,6 @@ declare namespace NodeJS {
 		USE_HTML?: "true";
 		USE_CSR?: "true";
 		USE_HTTPS?: "true";
+		BASE_URL?: string;
 	}
 }

@@ -4,6 +4,7 @@ import { useDocumentVisibility, useMediaQuery, useViewportSize } from "@mantine/
 import { useEffect } from "preact/hooks";
 import { ErrorBoundary } from "react-error-boundary";
 import { Toaster } from "react-hot-toast";
+import { clientEnv } from "./clientEnv";
 import { globalState } from "./context/GlobalState";
 import { HomePage } from "./pages/exports_";
 import type { HomePage as _HomePage } from "./pages/Home";
@@ -19,6 +20,7 @@ const theme = createTheme({});
  */
 export const App = () => {
 	const url = new URL(window.location.href);
+
 	const isAboveMd = useMediaQuery("(min-width: 62em)");
 	const isBelowXxs = useMediaQuery("(max-width: 25em)");
 	const { height, width } = useViewportSize();
@@ -33,8 +35,7 @@ export const App = () => {
 			<WriteToolboxClasses />
 			<Toaster position="bottom-center" toastOptions={{ duration: 2000 }} />
 			<MantineProvider theme={theme} forceColorScheme={globalState.colorScheme.value}>
-				{url.pathname === "/" && <HomePage />}
-				{url.pathname === "/home" && <HomePage />}
+				{url.pathname === `${clientEnv.BASE_URL}/` && <HomePage />}
 			</MantineProvider>
 		</ErrorBoundary>
 	);
