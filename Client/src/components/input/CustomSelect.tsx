@@ -2,7 +2,7 @@ import { Input, InputProps, Popover } from "@mantine/core";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { useState } from "preact/hooks";
 import { globalState, xsSm } from "../../context/GlobalState";
-import { VDisplay } from "../../utils/ComponentToolbox";
+import { Vertical } from "../../utils/ComponentToolbox";
 import CustomSelectCss from "./CustomSelect.module.css";
 
 /** The default props for the custom select input. */
@@ -67,7 +67,7 @@ export const CustomSelect = ({
 				/>
 			</Popover.Target>
 			<Popover.Dropdown p={0} w={globalState.isAboveMd ? 110 : 90} style={{ zIndex: 6000 }}>
-				<VDisplay gap={5}>
+				<Vertical gap={5}>
 					{data.map((item) => (
 						<Input
 							key={item}
@@ -81,7 +81,7 @@ export const CustomSelect = ({
 							{...optionProps}
 						/>
 					))}
-				</VDisplay>
+				</Vertical>
 			</Popover.Dropdown>
 		</Popover>
 	);

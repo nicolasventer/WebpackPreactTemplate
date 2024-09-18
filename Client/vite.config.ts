@@ -12,7 +12,7 @@ export default defineConfig({
 			output: {
 				dir: path.resolve(__dirname, "dist"),
 				entryFileNames: "[name].js",
-				assetFileNames: "asset/[name].css",
+				assetFileNames: "asset/[name].[ext]",
 				chunkFileNames: "[name].chunk.js",
 				manualChunks: undefined,
 			},

@@ -55,8 +55,8 @@ const WriteClasses = (styleId: string, classes: Record<string, Partial<CSSStyleD
 export const WriteToolboxClasses = () => {
 	useEffect(() => {
 		WriteClasses("vanilla-classes", {
-			hDisplay: { display: "flex", flexDirection: "row" },
-			vDisplay: { display: "flex", flexDirection: "column" },
+			horizontal: { display: "flex", flexDirection: "row" },
+			vertical: { display: "flex", flexDirection: "column" },
 			overlap: { position: "relative" },
 			"overlap > *": { position: "absolute", height: "100%", width: "100%" },
 		});
@@ -82,10 +82,10 @@ export const AlignItemsValues = ["normal", "center", "flex-start", "flex-end", "
 /** Align items type */
 export type AlignItemsType = (typeof AlignItemsValues)[number];
 
-/** LDisplay values */
-export const LDisplayValues = ["hDisplay", "vDisplay", "overlap"] as const;
-/** LDisplay type */
-export type LDisplayType = (typeof LDisplayValues)[number];
+/** Layout values */
+export const LayoutValues = ["horizontal", "vertical", "overlap"] as const;
+/** Layout type */
+export type LayoutType = (typeof LayoutValues)[number];
 
 /**
  * Get the padding properties
@@ -128,10 +128,10 @@ const getMargin = ({
  * @param props div props
  * @returns a div with the flex box properties
  */
-export const LDisplay = forwardRef(
+export const Layout = forwardRef(
 	(
 		{
-			lDisplay,
+			layout,
 			alignItems,
 			justifyContent,
 			gap,
@@ -148,7 +148,7 @@ export const LDisplay = forwardRef(
 			flexGrow,
 			...divProps
 		}: {
-			lDisplay: LDisplayType;
+			layout: LayoutType;
 			alignItems?: AlignItemsType;
 			justifyContent?: JustifyContentType;
 			gap?: CssProperty;
@@ -169,7 +169,7 @@ export const LDisplay = forwardRef(
 		<div
 			{...divProps}
 			ref={ref}
-			className={clsx(lDisplay, divProps.class, divProps.className)}
+			className={clsx(layout, divProps.class, divProps.className)}
 			style={{
 				alignItems,
 				justifyContent,
@@ -187,37 +187,37 @@ export const LDisplay = forwardRef(
 
 /**
  * A horizontal flex box, with default alignItems="center"
- * @see {@link LDisplay}
+ * @see {@link Layout}
  * @param props div props
  * @returns a div with the horizontal flex box properties
  */
-export const HDisplay = forwardRef(
-	(props: Omit<ComponentPropsWithoutRef<typeof LDisplay>, "lDisplay">, ref: ForwardedRef<HTMLDivElement>) => (
-		<LDisplay ref={ref} alignItems="center" {...props} lDisplay="hDisplay" />
+export const Horizontal = forwardRef(
+	(props: Omit<ComponentPropsWithoutRef<typeof Layout>, "layout">, ref: ForwardedRef<HTMLDivElement>) => (
+		<Layout ref={ref} alignItems="center" {...props} layout="horizontal" />
 	)
 );
 
 /**
  * A vertical flex box
- * @see {@link LDisplay}
+ * @see {@link Layout}
  * @param props div props
  * @returns a div with the vertical flex box properties
  */
-export const VDisplay = forwardRef(
-	(props: Omit<ComponentPropsWithoutRef<typeof LDisplay>, "lDisplay">, ref: ForwardedRef<HTMLDivElement>) => (
-		<LDisplay ref={ref} {...props} lDisplay="vDisplay" />
+export const Vertical = forwardRef(
+	(props: Omit<ComponentPropsWithoutRef<typeof Layout>, "layout">, ref: ForwardedRef<HTMLDivElement>) => (
+		<Layout ref={ref} {...props} layout="vertical" />
 	)
 );
 
 /**
  * An overlap flex box
- * @see {@link LDisplay}
+ * @see {@link Layout}
  * @param props div props
  * @returns a div with the overlap flex box properties
  */
 export const Overlap = forwardRef(
-	(props: Omit<ComponentPropsWithoutRef<typeof LDisplay>, "lDisplay">, ref: ForwardedRef<HTMLDivElement>) => (
-		<LDisplay ref={ref} {...props} lDisplay="overlap" />
+	(props: Omit<ComponentPropsWithoutRef<typeof Layout>, "layout">, ref: ForwardedRef<HTMLDivElement>) => (
+		<Layout ref={ref} {...props} layout="overlap" />
 	)
 );
 
