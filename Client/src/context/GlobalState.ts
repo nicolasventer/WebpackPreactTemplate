@@ -23,7 +23,6 @@ export type GlobalState = {
 	isDocumentVisible: Signal<boolean>;
 };
 
-// Note: all of theses settings could be stored in the database
 type LocalStorageState = SignalToValue<Pick<GlobalState, "colorScheme">>;
 
 const loadGlobalState = (): GlobalState => {

@@ -51,9 +51,7 @@ const WriteClasses = (styleId: string, classes: Record<string, Partial<CSSStyleD
 	}, classStyleEl.innerHTML);
 };
 
-/**
- * Writes the toolbox classes, needs to use the component toolbox
- */
+/** Writes the toolbox classes, needs to use the component toolbox */
 export const WriteToolboxClasses = () => {
 	useEffect(() => {
 		WriteClasses("vanilla-classes", {
@@ -126,23 +124,8 @@ const getMargin = ({
 }) => (margin ? { margin } : { marginTop, marginLeft });
 
 /**
- * A flex box
- * @param props div props and lDisplay, alignItems and justifyContent
- * @param props.lDisplay the display type
- * @param props.alignItems the align items value
- * @param props.justifyContent the justify content value
- * @param props.gap the gap value
- * @param props.width the width value
- * @param props.widthMaxContent set the width to max-content
- * @param props.height the height value
- * @param props.heightMaxContent set the height to max-content
- * @param props.padding the padding value
- * @param props.paddingTop the padding top value
- * @param props.paddingLeft the padding left value
- * @param props.margin the margin value
- * @param props.marginTop the margin top value
- * @param props.marginLeft the margin left value
- * @param props.flexGrow the flex grow value
+ * A flex box that can be horizontal, vertical, or overlap
+ * @param props div props
  * @returns a div with the flex box properties
  */
 export const LDisplay = forwardRef(
@@ -278,20 +261,9 @@ export const GetIntrinsicComp =
 		createElement(tag as any, props);
 
 /**
- * A box component
- * @param props div props and width and height
- * @param props.width the width of the box
- * @param props.widthMaxContent set the width to max-content
- * @param props.height the height of the box
- * @param props.heightMaxContent set the height to max-content
- * @param props.padding the padding of the box
- * @param props.paddingTop the padding top of the box
- * @param props.paddingLeft the padding left of the box
- * @param props.margin the margin of the box
- * @param props.marginTop the margin top of the box
- * @param props.marginLeft the margin left of the box
- * @param props.flexGrow the flex grow of the box
- * @returns a div with the width, height, padding, and margin properties
+ * A box component that have properties like width, height
+ * @param props div props
+ * @returns a div with the specified properties
  */
 export const Box = forwardRef(
 	(
