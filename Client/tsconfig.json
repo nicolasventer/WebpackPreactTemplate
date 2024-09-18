@@ -1,24 +1,29 @@
 {
 	"compilerOptions": {
 		"target": "ES2020",
-		"moduleResolution": "node",
-		"module": "esnext",
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"strict": true,
+		"useDefineForClassFields": true,
+		"module": "ESNext",
+		"lib": ["ES2020", "DOM", "DOM.Iterable"],
 		"skipLibCheck": true,
-		"jsx": "react-jsx",
-		"jsxImportSource": "preact",
-		"resolveJsonModule": true,
-		"isolatedModules": true,
-		"importHelpers": true,
-		"sourceMap": true,
-		// "declaration": true,
-		// "outDir": "./dist",
 		"paths": {
 			"react": ["./node_modules/preact/compat/"],
 			"react-dom": ["./node_modules/preact/compat/"]
-		}
+		},
+
+		/* Bundler mode */
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
+		"isolatedModules": true,
+		"moduleDetection": "force",
+		"noEmit": true,
+		"jsx": "react-jsx",
+		"jsxImportSource": "preact",
+
+		/* Linting */
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true
 	},
-	"include": ["src", "src/custom.d.ts"]
+	"include": ["src"]
 }
