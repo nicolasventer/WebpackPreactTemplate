@@ -25,18 +25,17 @@ npm install -g serve
 
 #### Installation
 
-```ps1
-git clone https://github.com/nicolasventer/Preact-Project-Template.git
-Set-Location Preact-Project-Template
-Set-ExecutionPolicy Unrestricted
-all_init_on_cloned.ps1
+```bat
+git clone https://github.com/nicolasventer/WebpackReactTemplate.git
+cd WebpackReactTemplate
+all_init_on_cloned.bat
 ```
 
 The script will create a symbolic link between the `Common` folder of the `Client` and `Server` folders and then install the dependencies.  
 If you want to install the dependencies manually, you should at least create the symbolic link:
 
-```ps1
-New-Item -ItemType Junction -Name "Client/src/Common" -Target "Server/src/Common"
+```bat
+mklink /J "Client/src/Common" "Server/src/Common"
 ```
 
 ### On Linux
