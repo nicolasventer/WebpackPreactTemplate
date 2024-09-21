@@ -10,9 +10,11 @@ const CLIENT_PATH = path.join(__dirname, "../../Client");
 const DIST_PATH = path.join(CLIENT_PATH, "dist");
 const DOCS_PATH = path.join(CLIENT_PATH, "docs");
 
-const distFiles = readdirSync(DIST_PATH, { withFileTypes: true, recursive: true })
-	.filter((file) => file.isFile())
-	.map((file) => path.join(file.parentPath, file.name));
+const distFiles = existsSync(DIST_PATH)
+	? readdirSync(DIST_PATH, { withFileTypes: true, recursive: true })
+			.filter((file) => file.isFile())
+			.map((file) => path.join(file.parentPath, file.name))
+	: [];
 const docsFiles = existsSync(DOCS_PATH)
 	? readdirSync(DOCS_PATH, { withFileTypes: true, recursive: true })
 			.filter((file) => file.isFile())

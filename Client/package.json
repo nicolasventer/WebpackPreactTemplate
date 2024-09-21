@@ -3,7 +3,7 @@
 	"type": "module",
 	"scripts": {
 		"envDev": "bun run _genClientEnv.ts",
-		"envProd": "cross-env BASE_URL='' bun run _genClientEnv.ts",
+		"envProd": "cross-env B_PROD=true bun run _genClientEnv.ts",
 		"dev": "bunx --bun vite",
 		"watch": "bun run envDev && nodemon -w src -e css,ts,tsx --exec bun run _build.ts",
 		"buildDev": "bun run envDev && bun run _build.ts",
