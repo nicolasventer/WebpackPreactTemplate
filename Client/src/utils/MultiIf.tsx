@@ -1,6 +1,18 @@
 import type { ReactNode } from "preact/compat";
 
 /**
+ * A if statement in JSX.
+ * @param props the props
+ * @param props.condition the condition of the if statement
+ * @param props.then the then branch of the if statement
+ * @param props.else the else branch of the if statement
+ * @returns the result of the if statement
+ */
+export const If = ({ condition, then, else: else_ }: { condition: boolean; then: ReactNode; else?: ReactNode }) => (
+	<>{condition ? then : else_}</>
+);
+
+/**
  * A switch statement in JSX.
  * @param props the props
  * @param props.value the value to switch on

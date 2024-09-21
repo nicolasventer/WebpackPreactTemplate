@@ -2,7 +2,6 @@ import { createTheme, MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { useDocumentVisibility, useMediaQuery, useViewportSize } from "@mantine/hooks";
 import { useEffect } from "preact/hooks";
-import { ErrorBoundary } from "react-error-boundary";
 import { Toaster } from "react-hot-toast";
 import { clientEnv } from "./clientEnv";
 import { globalState } from "./context/GlobalState";
@@ -31,12 +30,12 @@ export const App = () => {
 	useEffect(() => void (globalState.isDocumentVisible.value = documentVisibility === "visible"), [documentVisibility]);
 
 	return (
-		<ErrorBoundary fallbackRender={({ error }) => `error: ${JSON.stringify(error)}`}>
+		<>
 			<WriteToolboxClasses />
 			<Toaster position="bottom-center" toastOptions={{ duration: 2000 }} />
 			<MantineProvider theme={theme} forceColorScheme={globalState.colorScheme.value}>
 				{url.pathname === `${clientEnv.BASE_URL}/` && <HomePage />}
 			</MantineProvider>
-		</ErrorBoundary>
+		</>
 	);
 };
